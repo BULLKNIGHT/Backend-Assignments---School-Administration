@@ -27,7 +27,7 @@ app.get("/api/student/:id", (req, res) => {
 app.post("/api/student", (req, res) => {
     const obj = req.body;
     
-    if(obj.hasOwnProperty('name') && obj.hasOwnProperty('currentClass') && obj.hasOwnProperty('division')) {
+    if(req.body.name && req.body.currentClass && req.body.division) {
         const student = {
             id: studentArray[studentArray.length - 1].id + 1,
             name: obj.name,
