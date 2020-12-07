@@ -24,21 +24,36 @@ app.get("/api/student/:id", (req, res) => {
     res.send(obj);
 })
 
-app.post("/api/student", (req, res) => {
-    const obj = req.body;
+// app.post("/api/student", (req, res) => {
+//     const obj = req.body;
     
-    if(req.body.name && req.body.currentClass && req.body.division) {
-        const student = {
-            id: studentArray[studentArray.length - 1].id + 1,
-            name: obj.name,
-            currentClass: obj.currentClass,
-            division: obj.division
-        }
+//     if(req.body.name && req.body.currentClass && req.body.division) {
+//         const student = {
+//             id: studentArray[studentArray.length - 1].id + 1,
+//             name: obj.name,
+//             currentClass: obj.currentClass,
+//             division: obj.division
+//         }
         
-        studentArray.push(student);
-        res.send({ id: student.id });
-    } else { res.sendStatus(400); }
-})
+//         studentArray.push(student);
+//         res.send({ id: student.id });
+//     } else { res.sendStatus(400); }
+// })
+
+app.post("/api/student", (req, res) => {
+    if (req.body.name && req.body.currentClass && req.body.division) {
+      const newStudent = {
+        id: studentArray[studentArray.length - 1].id + 1,
+        name: req.body.name,
+        currentClass: Number(req.body.currentClass),
+        division: req.body.division,
+      };
+      studentArray.push(newStudent);
+      res.send({ id: newStudent.id });
+    } else {
+      res.sendStatus(400);
+    }
+  })
 
 app.put("/api/student/:id", (req, res) => {
     const objInd = studentArray.findIndex(student => student.id == req.params.id);
