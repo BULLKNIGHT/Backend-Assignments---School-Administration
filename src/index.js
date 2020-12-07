@@ -29,7 +29,7 @@ app.post("/api/student", (req, res) => {
         const student = {
             id: studentArray[studentArray.length - 1].id + 1,
             name: req.body.name,
-            currentClass: req.body.currentClass,
+            currentClass: Number(req.body.currentClass),
             division: req.body.division
         }
         
@@ -37,6 +37,7 @@ app.post("/api/student", (req, res) => {
         res.send({ id: student.id });
     } else { res.sendStatus(400); }
 })
+
 
 app.put("/api/student/:id", (req, res) => {
     const objInd = studentArray.findIndex(student => student.id == req.params.id);
