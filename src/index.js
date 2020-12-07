@@ -28,9 +28,16 @@ app.post("/api/student", (req, res) => {
     const obj = req.body;
     
     if(obj.hasOwnProperty('name') && obj.hasOwnProperty('currentClass') && obj.hasOwnProperty('division')) {
-        obj.id = studentArray[studentArray.length - 1].id + 1;
-        studentArray.push(obj);
-        res.send({ id: obj.id });
+        const student = {
+            id: studentArray[studentArray.length - 1].id + 1,
+            name: obj.name,
+            currentClass: obj.currentClass,
+            division: obj.division
+        }
+        
+        
+        studentArray.push(student);
+        res.send({ id: studentArray[studentArray.length - 1].id });
     } else { res.sendStatus(400); }
 })
 
