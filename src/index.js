@@ -59,7 +59,7 @@ app.put("/api/student/:id", (req, res) => {
             res.sendStatus(400);
         else {
             studentArray[objInd].name = req.body.name !== undefined? req.body.name : studentArray[objInd].name;
-            studentArray[objInd].currentClass = req.body.currentClass !== undefined? req.body.currentClass : studentArray[objInd].currentClass;
+            studentArray[objInd].currentClass = req.body.currentClass !== undefined? Number(req.body.currentClass) : studentArray[objInd].currentClass;
             studentArray[objInd].division = req.body.division !== undefined? req.body.division : studentArray[objInd].division;
             res.send(studentArray[objInd]);
         }   
