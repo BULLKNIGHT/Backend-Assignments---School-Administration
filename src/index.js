@@ -26,9 +26,10 @@ app.get("/api/student/:id", (req, res) => {
 
 app.post("/api/student", (req, res) => {
     const obj = req.body;
-    obj.id = counter;
-    counter++;
+    
     if(obj.hasOwnProperty('name') && obj.hasOwnProperty('currentClass') && obj.hasOwnProperty('division')) {
+        obj.id = counter;
+        counter++;
         studentArray.push(obj);
         res.send({"id": obj.id});
     } else { res.sendStatus(400); }
@@ -38,10 +39,24 @@ app.put("/api/student/:id", (req, res) => {
     const objInd = studentArray.findIndex(student => student.id == req.params.id);
     if(objInd === -1)
         res.sendStatus(400);
-    else if(Object.keys(req.body).length === 1 && req.body.hasOwnProperty('name')) {
-        studentArray[objInd].name = req.body.name;
-        res.send(studentArray[objInd]);
-    } else res.sendStatus(400);    
+    else {    
+        let flag = false;
+        for(let i=0; i<Object.keys(req.body).length; i++) {
+            if(["name", "currentClass", "division"].indexOf(Object.keys(req.body)[i]) !== -1) {}
+            else {
+                flag = true;
+                break;
+            }
+        }
+        if(flag)
+            res.sendStatus(400);
+        else {
+            studentArray[objInd].name = req.body.name !== undefined? req.body.name : studentArray[objInd].name;
+            studentArray[objInd].currentClass = req.body.currentClass !== undefined? req.body.currentClass : studentArray[objInd].currentClass;
+            studentArray[objInd].division = req.body.division !== undefined? req.body.division : studentArray[objInd].division;
+            res.send(studentArray[objInd]);
+        }   
+    }  
 })
 
 app.delete("/api/student/:id", (req, res) => {
