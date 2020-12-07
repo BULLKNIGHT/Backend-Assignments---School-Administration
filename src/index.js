@@ -35,9 +35,8 @@ app.post("/api/student", (req, res) => {
             division: obj.division
         }
         
-        
         studentArray.push(student);
-        res.send({ id: studentArray[studentArray.length - 1].id });
+        res.send({ id: student.id });
     } else { res.sendStatus(400); }
 })
 
