@@ -31,20 +31,20 @@ app.post("/api/student", (req, res) => {
         obj.id = counter;
         counter++;
         studentArray.push(obj);
-        res.send({"id": obj.id});
+        res.send({ id: obj.id });
     } else { res.sendStatus(400); }
 })
 
 app.put("/api/student/:id", (req, res) => {
     const objInd = studentArray.findIndex(student => student.id == req.params.id);
-    console.log(objInd);
+    // console.log(objInd);
     if(objInd === -1)
         res.sendStatus(400);
     else {    
         let flag = false;
         for(let i=0; i<Object.keys(req.body).length; i++) {
             if(["name", "currentClass", "division"].includes(Object.keys(req.body)[i])) {
-                console.log(Object.keys(req.body)[i]);
+                // console.log(Object.keys(req.body)[i]);
             }
             else {
                 flag = true;
